@@ -16,6 +16,7 @@ builder.Services.AddDbContext<EcommerceContext>(opt =>
     opt.UseSqlServer(builder.Configuration.GetConnectionString("Ecommerce.connectionString"));
 });
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped(typeof(IgenericRepository<>), typeof(GenericRepository<>));
 //anything up here called the service
 var app = builder.Build();
 //anything down here are middleware

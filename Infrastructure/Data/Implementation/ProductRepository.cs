@@ -52,7 +52,7 @@ namespace Infrastructure.Data.Implementation
             {
                 "priceAsc"=> query.OrderBy(x=>x.Price),
                 "priceDesc" => query.OrderByDescending(x=>x.Price),
-                "_" => query.OrderBy(x=>x.ProductName),
+                _ => query.OrderBy(x=>x.ProductName),
             };
             return await query.ToListAsync();
         }

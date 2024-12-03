@@ -1,3 +1,4 @@
+using API.Middleware;
 using Core.Interfaces;
 using Infrastructure.Data;
 using Infrastructure.Data.Implementation;
@@ -17,10 +18,11 @@ builder.Services.AddDbContext<EcommerceContext>(opt =>
 });
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped(typeof(IgenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddCors();
 //anything up here called the service
 var app = builder.Build();
 //anything down here are middleware
-
+app.UseMiddleware<ExceptionMiddleware>();
 
 // Configure the HTTP request pipeline.
 //if (app.Environment.IsDevelopment())
@@ -32,7 +34,7 @@ var app = builder.Build();
 //app.UseHttpsRedirection();
 
 //app.UseAuthorization();
-
+app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:5112","https://localhost:5112"));
 app.MapControllers();
 
 try

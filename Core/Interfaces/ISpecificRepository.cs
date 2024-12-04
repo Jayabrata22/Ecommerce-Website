@@ -9,6 +9,15 @@ namespace Core.Interfaces
 {
     public interface ISpecificRepository<T>
     {
-        Expression<Func<T,bool>> Criteria { get; }
+        Expression<Func<T,bool>>? Criteria { get; }
+        Expression<Func<T,object>>? Orderby { get; }
+        Expression<Func<T,object>>? OrderbyDesending { get; }
+
+        bool IsDistinvt {  get; }
+       
+    }
+    public interface ISpecificRepository<T,Tresult> : ISpecificRepository<T>
+    {
+        Expression<Func<T, Tresult>>? Select { get; }
     }
 }

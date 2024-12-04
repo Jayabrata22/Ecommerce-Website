@@ -15,7 +15,9 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<IReadOnlyList<Product>>> GetProduct(string? brands, string? types, string? sort)
         {
-            return Ok(await productRepository.GetProductsAsync(brands, types, sort));
+            var spec = new ProductFPSSpecification(brands, types, sort);
+            var products = await igeneric.ListAsync(spec);
+            return Ok(products);
 
         }
 
@@ -32,12 +34,14 @@ namespace API.Controllers
         [HttpGet("brands")]
         public async  Task<ActionResult<IReadOnlyList<string>>> GetBrands()
         {
-            return Ok( await productRepository.GetBrandAsync());
+            var spec = new BrandlistSpecification();
+            return Ok(await igeneric.ListAsync(spec));
         }
         [HttpGet("types")]
         public async Task<ActionResult<IReadOnlyList<string>>> GetTypes()
         {
-            return Ok(await productRepository.GetTypeAsync());
+            var spec = new TypeListSpecification();
+            return Ok(await igeneric.ListAsync(spec));
         }
         [HttpPost]
         public async Task<ActionResult<Product>> Createproduct(Product product)

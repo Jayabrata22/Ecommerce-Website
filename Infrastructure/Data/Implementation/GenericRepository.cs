@@ -32,9 +32,29 @@ namespace Infrastructure.Data.Implementation
 
         }
 
+        public async Task<T?> getEntitywithSpecification(ISpecificRepository<T> spec)
+        {
+            return await ApplySpecifation(spec).FirstOrDefaultAsync();
+        }
+
+        public async Task<TResult?> getEntitywithSpecification<TResult>(ISpecificRepository<T, TResult> spec)
+        {
+            return  await ApplySpecifation(spec).FirstOrDefaultAsync();
+        }
+
         public async Task<IReadOnlyList<T>> ListAllAsync()
         {
             return await ecommerceContextg.Set<T>().ToListAsync();
+        }
+
+        public async Task<IReadOnlyList<T>> ListAsync(ISpecificRepository<T> spec)
+        {
+            return await ApplySpecifation(spec).ToListAsync();
+        }
+
+        public async Task<IReadOnlyList<TResult>> ListAsync<TResult>(ISpecificRepository<T, TResult> spec)
+        {
+            return  await ApplySpecifation(spec).ToListAsync();
         }
 
         public async Task<bool> SaveAllAsync()
@@ -46,6 +66,16 @@ namespace Infrastructure.Data.Implementation
         {
             ecommerceContextg.Set<T>().Attach(entity);
             ecommerceContextg.Entry(entity).State = EntityState.Modified;
+        }
+
+        private IQueryable<T> ApplySpecifation(ISpecificRepository<T> spec)
+        {
+            return SpecificationEvaluator<T>.getQuery(ecommerceContextg.Set<T>().AsQueryable(), spec);
+        }
+
+        private IQueryable<TResult> ApplySpecifation<TResult>(ISpecificRepository<T, TResult> spec)
+        {
+            return SpecificationEvaluator<T>.getQuery<T,TResult>(ecommerceContextg.Set<T>().AsQueryable(), spec);
         }
     }
 }

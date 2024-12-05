@@ -14,6 +14,11 @@ namespace Core.Interfaces
         Expression<Func<T,object>>? OrderbyDesending { get; }
 
         bool IsDistinvt {  get; }
+        int Take {  get; }
+        int Skip {  get; }
+        bool IspagingEnable {  get; }
+
+        IQueryable<T> ApplyCriteria(IQueryable<T> query);
        
     }
     public interface ISpecificRepository<T,Tresult> : ISpecificRepository<T>

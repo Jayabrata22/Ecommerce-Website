@@ -20,5 +20,6 @@ namespace Core.Interfaces
         bool Exists(int id);
         Task<IReadOnlyList<TResult>> ListAsync<TResult>(ISpecificRepository<T , TResult> spec);
         Task<TResult?> getEntitywithSpecification<TResult>(ISpecificRepository<T, TResult> spec);
+        Task<int> CountAsync(ISpecificRepository<T> specific);
     }
 }

@@ -10,12 +10,14 @@ namespace Infrastructure.Data.Implementation
 {
     public class ProductFPSSpecification : BaseSpecificRepository<Product>
     {
-        public ProductFPSSpecification(string? brand, string? type, string? sort) : base(x =>
-        (string.IsNullOrEmpty(brand) || x.Brand == brand) &&
-        (string.IsNullOrWhiteSpace(type) || x.Type == type)
-        )
+        public ProductFPSSpecification(ProductSpecParams specParams) : base(x =>
+        (string.IsNullOrEmpty(specParams.Search) || x.ProductName.ToLower().Contains(specParams.Search)) &&
+        (!specParams.Brands.Any() || specParams.Brands.Contains(x.Brand) &&
+        (specParams.Types.Count == 0 || specParams.Brands.Contains(x.Type))
+        ))
         {
-            switch (sort)
+            ApplyPaging(specParams.PageSize *(specParams.PageIndex -1),specParams.PageSize);
+            switch (specParams.Sort)
             {
                 case "priceAsc":
                     AddOrderby(x => x.Price);

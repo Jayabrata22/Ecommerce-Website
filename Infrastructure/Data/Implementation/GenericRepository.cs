@@ -16,6 +16,14 @@ namespace Infrastructure.Data.Implementation
             ecommerceContextg.Set<T>().Add(entity);
         }
 
+        public async Task<int> CountAsync(ISpecificRepository<T> specific)
+        {
+            var query = ecommerceContextg.Set<T>().AsQueryable();
+            query = specific.ApplyCriteria(query);
+
+            return await query.CountAsync();
+        }
+
         public void Delete(T entity)
         {
             ecommerceContextg.Set<T>().Remove(entity);

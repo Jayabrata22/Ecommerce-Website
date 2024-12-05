@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    public class ErrorlogController : ControllerBase
+    public class ErrorlogController : BaseAPIController
     {
         [HttpGet("unauthorized")]
         public IActionResult GetUnauthorized()

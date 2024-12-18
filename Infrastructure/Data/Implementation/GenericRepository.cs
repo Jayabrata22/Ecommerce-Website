@@ -47,7 +47,7 @@ namespace Infrastructure.Data.Implementation
 
         public async Task<TResult?> getEntitywithSpecification<TResult>(ISpecificRepository<T, TResult> spec)
         {
-            return  await ApplySpecifation(spec).FirstOrDefaultAsync();
+            return  await ApplySpecifationn(spec).FirstOrDefaultAsync();
         }
 
         public async Task<IReadOnlyList<T>> ListAllAsync()
@@ -60,9 +60,9 @@ namespace Infrastructure.Data.Implementation
             return await ApplySpecifation(spec).ToListAsync();
         }
 
-        public async Task<IReadOnlyList<TResult>> ListAsync<TResult>(ISpecificRepository<T, TResult> spec)
+        public async Task<IReadOnlyList<TResult>> ListAlllAsync<TResult>(ISpecificRepository<T, TResult> spec)
         {
-            return  await ApplySpecifation(spec).ToListAsync();
+            return  await ApplySpecifationn(spec).ToListAsync();
         }
 
         public async Task<bool> SaveAllAsync()
@@ -81,9 +81,14 @@ namespace Infrastructure.Data.Implementation
             return SpecificationEvaluator<T>.getQuery(ecommerceContextg.Set<T>().AsQueryable(), spec);
         }
 
-        private IQueryable<TResult> ApplySpecifation<TResult>(ISpecificRepository<T, TResult> spec)
+        private IQueryable<TResult> ApplySpecifationn<TResult>(ISpecificRepository<T, TResult> spec)
         {
             return SpecificationEvaluator<T>.getQuery<T,TResult>(ecommerceContextg.Set<T>().AsQueryable(), spec);
+        }
+
+        public Task<IReadOnlyList<TResult>> ListAsync<TResult>(ISpecificRepository<T, TResult> spec)
+        {
+            throw new NotImplementedException();
         }
     }
 }

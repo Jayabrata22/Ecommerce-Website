@@ -12,7 +12,7 @@ namespace Infrastructure.Data.Implementation
     {
         public ProductFPSSpecification(ProductSpecParams specParams) : base(x =>
         (string.IsNullOrEmpty(specParams.Search) || x.ProductName.ToLower().Contains(specParams.Search)) &&
-        (!specParams.Brands.Any() || specParams.Brands.Contains(x.Brand) &&
+        (specParams.Brands.Count == 0 || specParams.Brands.Contains(x.Brand) &&
         (specParams.Types.Count == 0 || specParams.Brands.Contains(x.Type))
         ))
         {
@@ -23,7 +23,8 @@ namespace Infrastructure.Data.Implementation
                     AddOrderby(x => x.Price);
                     break;
                 case "priceDesc":
-                    AddOrderbyDesc(x => x.Price); break;
+                    AddOrderbyDesc(x => x.Price); 
+                    break;
                 default:
                     AddOrderby(x => x.ProductName);
                     break;

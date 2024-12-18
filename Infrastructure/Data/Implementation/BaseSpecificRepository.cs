@@ -27,6 +27,10 @@ namespace Infrastructure.Data.Implementation
 
         public bool IspagingEnable { get; private set; }
 
+        public List<Expression<Func<T, object>>> Includes { get; } = [];
+
+        public List<string> IncludeStrings { get; } = [];
+
         public IQueryable<T> ApplyCriteria(IQueryable<T> query)
         {
             if (criteria != null)
@@ -39,6 +43,7 @@ namespace Infrastructure.Data.Implementation
         protected void AddOrderby(Expression<Func<T, object>> orderByexpression)
         {
             Orderby = orderByexpression;
+
         }
 
         protected void AddOrderbyDesc(Expression<Func<T, object>> orderByDescxpression)

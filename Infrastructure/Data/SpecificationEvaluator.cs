@@ -1,5 +1,6 @@
 ﻿using Core.Entities;
 using Core.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,6 +36,7 @@ namespace Infrastructure.Data
             {
                 query = query.Skip(sepc.Skip).Take(sepc.Take);
             }
+           
             return query;
         }
         public static IQueryable<TResult> getQuery<TSpec,TResult>(IQueryable<T> query, ISpecificRepository<T , TResult> sepc)

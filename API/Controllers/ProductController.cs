@@ -10,7 +10,7 @@ using System.Linq;
 namespace API.Controllers
 {
     
-    public class ProductController(IProductRepository productRepository,IgenericRepository<Product> igeneric) : BaseAPIController
+    public class ProductController(IgenericRepository<Product> igeneric) : BaseAPIController
     {
         [HttpGet]
         public async Task<ActionResult<IReadOnlyList<Product>>> GetProduct([FromQuery]ProductSpecParams specParams)

@@ -9,7 +9,7 @@ namespace API.Controllers
     [Route("api/[controller]")]
     public class BaseAPIController : ControllerBase
     {
-       protected async Task<ActionResult> CreatePageResult<T>(IgenericRepository<T> repo,
+        protected async Task<ActionResult> CreatePageResult<T>(IgenericRepository<T> repo,
            ISpecificRepository<T> spec, int PageIndex , int PageSize) where T : BaseEntity
         {
             var items = await repo.ListAsync(spec);
@@ -17,6 +17,6 @@ namespace API.Controllers
             var pagination = new Pagination<T>(PageIndex, PageSize, count,items);
             return Ok(pagination);
         }
-        
+
     }
 }

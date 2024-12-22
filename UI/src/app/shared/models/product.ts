@@ -1,6 +1,7 @@
 export type Product ={
+PictureUrl: any;
     id: number;
-    name : string;
+    productName : string;
     description: string;
     price: number;
     pictureUrl: string;

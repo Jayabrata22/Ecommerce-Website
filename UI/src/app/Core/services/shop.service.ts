@@ -9,6 +9,7 @@ import { Product } from '../../shared/models/product';
 export class ShopService {
 
   baseurl= 'https://localhost:7292/api/'
+<<<<<<< HEAD
     private http = inject(HttpClient);
     types: string[]=[];
     brands: string[]=[];
@@ -28,4 +29,10 @@ export class ShopService {
       next: response=> this.types = response
     })
   }
+=======
+    private http = inject(HttpClient)
+  getProducts(){
+    return this.http.get<Pagination<Product>>(this.baseurl + 'product?pageSize=20')
+  }
+>>>>>>> 041647e98e1e18f76e0d4ec1a0fcd81cb3bb285b
 }
